@@ -1,3 +1,5 @@
+import { Direction } from './constants';
+
 export type TIngredient = {
   _id: string;
   name: string;
@@ -38,3 +40,8 @@ export type TUser = {
 };
 
 export type TTabMode = 'bun' | 'sauce' | 'main';
+
+export type TMove = {
+  index: number;
+  direction: Direction;
+};
