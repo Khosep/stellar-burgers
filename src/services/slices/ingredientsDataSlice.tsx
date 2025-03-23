@@ -21,9 +21,9 @@ export const getIngredientsData = createAsyncThunk<
   { rejectValue: string }
 >(`${sliceName}/get`, async (_, { dispatch, rejectWithValue }) => {
   try {
-    dispatch(setIsLoading(true));
+    //dispatch(setIsLoading(true));
     const data = await getIngredientsApi();
-    dispatch(setIsLoading(false));
+    //dispatch(setIsLoading(false));
     return data;
   } catch (error) {
     console.error(error);
