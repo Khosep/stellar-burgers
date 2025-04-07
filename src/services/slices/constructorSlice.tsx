@@ -11,7 +11,7 @@ type TConstructortState = {
   };
 };
 
-const initialState: TConstructortState = {
+export const initialStateConstructor: TConstructortState = {
   constructorItems: {
     bun: null,
     ingredients: []
@@ -22,7 +22,7 @@ const sliceName = 'burgerConstructor';
 
 export const constructorSlice = createSlice({
   name: sliceName,
-  initialState,
+  initialState: initialStateConstructor,
   reducers: {
     // Добавляет ингредиент
     addIngredient: {
@@ -68,7 +68,7 @@ export const constructorSlice = createSlice({
         ];
       }
     },
-    resetConstructor: () => initialState
+    resetConstructor: () => initialStateConstructor
   }
 });
 

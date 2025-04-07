@@ -20,7 +20,7 @@ export const Feed: FC = () => {
     dispatch(getFeed());
   };
 
-  if (isLoading) {
+  if (isLoading.feed) {
     return <Preloader />;
   }
 

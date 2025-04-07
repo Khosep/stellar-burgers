@@ -1,26 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-type TLoadingState = {
-  isLoading: boolean;
+export type TLoadingState = {
+  isLoading: {
+    user: boolean;
+    ingredients: boolean;
+    feed: boolean;
+    order: boolean;
+  };
 };
 
-const initialState: TLoadingState = {
-  isLoading: false
+export const initialStateLoading: TLoadingState = {
+  isLoading: {
+    user: false,
+    ingredients: false,
+    feed: false,
+    order: false
+  }
 };
 
-const loadingSlice = createSlice({
-  name: 'loading',
-  initialState,
+const sliceName = 'loading';
+
+export const loadingSlice = createSlice({
+  name: sliceName,
+  initialState: initialStateLoading,
   reducers: {
-    setIsLoading(state, action) {
-      state.isLoading = action.payload;
+    setIsLoading(
+      state,
+      action: PayloadAction<{
+        isLoadingStatus: boolean;
+        area: keyof TLoadingState['isLoading'];
+      }>
+    ) {
+      const { isLoadingStatus, area } = action.payload;
+      state.isLoading[area] = isLoadingStatus;
     }
-  },
-  selectors: {
-    isLoadingSelector: (state) => state.isLoading
   }
 });
+export const isLoadingSelector = (state: RootState) =>
+  state[sliceName].isLoading;
 
 export const { setIsLoading } = loadingSlice.actions;
 export const loadingReducer = loadingSlice.reducer;
-export const { isLoadingSelector } = loadingSlice.selectors;

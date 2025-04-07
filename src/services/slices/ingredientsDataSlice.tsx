@@ -9,7 +9,7 @@ type TIngrediensDatatState = {
   error: string | null;
 };
 
-const initialState: TIngrediensDatatState = {
+export const initialStateIngredients: TIngrediensDatatState = {
   ingredients: [],
   error: null
 };
@@ -21,11 +21,12 @@ export const getIngredientsData = createAsyncThunk<
   { rejectValue: string }
 >(`${sliceName}/get`, async (_, { dispatch, rejectWithValue }) => {
   try {
-    //dispatch(setIsLoading(true));
+    dispatch(setIsLoading({ isLoadingStatus: true, area: sliceName }));
     const data = await getIngredientsApi();
-    //dispatch(setIsLoading(false));
+    dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
     return data;
   } catch (error) {
+    dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
     console.error(error);
     return rejectWithValue(
       error instanceof Error ? error.message : 'Unknown error'
@@ -35,7 +36,7 @@ export const getIngredientsData = createAsyncThunk<
 
 export const ingredientsDataSlice = createSlice({
   name: sliceName,
-  initialState,
+  initialState: initialStateIngredients,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -46,6 +47,7 @@ export const ingredientsDataSlice = createSlice({
         getIngredientsData.fulfilled,
         (state, action: PayloadAction<TIngredient[]>) => {
           state.ingredients = action.payload;
+          //console.log('Current state:', JSON.stringify(state, null, 2));
           state.error = null;
         }
       )

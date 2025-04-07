@@ -1,13 +1,8 @@
 import { Preloader } from '@ui';
 
-//import { isAuthCheckedSelector, userDataSelector } from '../../services/store/selectors';
 import { Navigate, useLocation } from 'react-router';
 import { useSelector } from '../../services/store';
-import {
-  isLoadingSelector,
-  isAuthorizedSelector,
-  getUserSelector
-} from '@slices';
+import { isLoadingSelector, isAuthorizedSelector } from '@slices';
 
 type ProtectedRouteProps = {
   onlyAuthorized?: boolean;
@@ -22,7 +17,7 @@ export const ProtectedRoute = ({
   const location = useLocation();
   const isAuthorized = useSelector(isAuthorizedSelector);
 
-  if (isLoading) {
+  if (isLoading.user) {
     return <Preloader />;
   }
 

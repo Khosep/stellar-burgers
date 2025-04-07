@@ -18,6 +18,7 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import { useDispatch } from '../../services/store'; // типизированный
 import { useEffect } from 'react';
 import { getIngredientsData, getUser } from '@slices';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,19 @@ const App = () => {
   // Текущее местоположение запоминаем (чтобы потом видеть фоном при открытии модалки)
   const backgrondLocation = location.state?.background;
   // Запрашиваем с сервера ингредиенты и пользователя
-  useEffect(() => {
+
+  /*   useEffect(() => {
     dispatch(getUser());
     dispatch(getIngredientsData());
-  }, [dispatch]);
+  }, []); */
+
+  const accessToken = getCookie('accessToken');
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(getUser());
+    }
+    dispatch(getIngredientsData());
+  }, []);
 
   // обрабытываем закрытие модального окна
   const handleModalClose = () => navigate(-1); // переход на предыдущий маршрут

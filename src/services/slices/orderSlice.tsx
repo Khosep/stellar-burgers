@@ -12,7 +12,7 @@ type TOrderState = {
   error: string | null;
 };
 
-const initialState: TOrderState = {
+export const initialStateOrder: TOrderState = {
   orderRequest: false,
   orderModalData: null,
   orders: [],
@@ -27,11 +27,12 @@ export const createOrder = createAsyncThunk(
   `${sliceName}/create`,
   async (ingredients: string[], { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoading({ isLoadingStatus: true, area: sliceName }));
       const data = await orderBurgerApi(ingredients);
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       return data;
     } catch (error) {
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       console.error(error);
       return rejectWithValue(
         error instanceof Error ? error.message : 'Unknown error'
@@ -75,9 +76,9 @@ export const getOrderByNumber = createAsyncThunk(
 
 export const orderSlice = createSlice({
   name: sliceName,
-  initialState,
+  initialState: initialStateOrder,
   reducers: {
-    resetOrder: () => initialState
+    resetOrder: () => initialStateOrder
   },
   extraReducers: (builder) => {
     builder
