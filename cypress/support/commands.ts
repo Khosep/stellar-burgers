@@ -49,10 +49,14 @@ Cypress.Commands.add('interceptIngredientsAPI', () => {
   cy.wait('@getIngredients', { timeout: 10000 });
 });
 
-Cypress.Commands.add('openIngModal', (ingName) => {
+Cypress.Commands.add('modalShouldNotExist', () => {
+  cy.get('[data-cy="modal"]').should('not.exist');
+});
+
+Cypress.Commands.add('openIngModalWithCheck', (ingName) => {
   // Открывает модальное окно; проверяет, что его видно
   cy.get('[data-cy="ingredient-card"]').contains(ingName).click();
-  cy.get('[data-cy="modal"]').should('be.visible');
+  cy.get('[data-cy="modal"]').should('be.visible').and('contain', ingName);
 });
 
 Cypress.Commands.add('shouldNotExistOrNotContain', (selector, text) => {

@@ -41,29 +41,30 @@ describe('Тест ингредиентов', () => {
 
   describe('Работа модального окна с детальным описанием по ингредиенту', () => {
     it('Открыть модальное окно', () => {
+      // Убеждаемся, что модальное окно не открыто
+      cy.modalShouldNotExist();
       // Открыть модальное окно кликом на карточку с ингредиентом (с проверкой открытия)
-      cy.openIngModal('Флюоресцентная булка R2-D3');
-      cy.contains('Флюоресцентная булка R2-D3').should('exist');
+      cy.openIngModalWithCheck('Флюоресцентная булка R2-D3');
     });
 
     it('Закрыть модальное окна по нажатию на кнопку', () => {
-      cy.openIngModal('Флюоресцентная булка R2-D3');
+      cy.openIngModalWithCheck('Флюоресцентная булка R2-D3');
       // Закрытие модального окна по кнопке
       cy.get('[data-cy="modal-close-button"]').click();
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.modalShouldNotExist();
     });
 
     it('Закрыть модальное окна по Esc', () => {
-      cy.openIngModal('Биокотлета из марсианской Магнолии');
+      cy.openIngModalWithCheck('Биокотлета из марсианской Магнолии');
       // Закрытие модального окна по клавише Esc
       cy.get('body').type('{esc}');
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.modalShouldNotExist();
     });
     it('Закрыть модальное окна по нажатию на оверлей', () => {
-      cy.openIngModal('Сыр с астероидной плесенью');
+      cy.openIngModalWithCheck('Сыр с астероидной плесенью');
       // Закрытие модального окна по клавише Esc
       cy.get('[data-cy="modal-close-overlay"]').click({ force: true });
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.modalShouldNotExist();
     });
   });
 });

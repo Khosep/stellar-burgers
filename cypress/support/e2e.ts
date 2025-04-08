@@ -18,7 +18,8 @@ import './commands';
 declare global {
   namespace Cypress {
     interface Chainable {
-      openIngModal(ingName: string): Chainable<void>;
+      modalShouldNotExist(): Chainable<void>;
+      openIngModalWithCheck(ingName: string): Chainable<void>;
       interceptIngredientsAPI(): Chainable<void>;
       shouldNotExistOrNotContain(
         selector: string,
