@@ -3,7 +3,7 @@
 import { BASE_API_URL } from 'cypress/support/commands';
 
 describe('Тест сборки заказа', () => {
-  beforeEach(() => {
+  before(() => {
     //Перехватываем запрос на получение ингредиентов и подменяем данные (см. commands.ts)
     cy.interceptIngredientsAPI();
     //Записываем токены
@@ -22,6 +22,18 @@ describe('Тест сборки заказа', () => {
     }).as('createOrder');
     cy.visit('/');
     cy.wait('@getUser', { timeout: 10000 });
+  });
+
+  // Очищаем сами - такие требования в задании (хотя Cypress и так это автоматически сделает либо перед тестом, либо после закрытия)
+  // В документации не рекомендуют применять очистку кук и localStorage, т.к.:
+  //  1) Cypress сам это делает;
+  //  2) Мы не увидим состояние после окончания теста (сотрется) - плохая практика
+  // https://docs.cypress.io/api/commands/clearcookies
+  // https://docs.cypress.io/api/commands/clearlocalstorage
+  // https://docs.cypress.io/app/core-concepts/best-practices#Using-after-Or-afterEach-Hooks
+  after(() => {
+    cy.clearLocalStorage();
+    cy.clearCookies();
   });
 
   it('Собрать и оформить заказ', () => {
