@@ -1,10 +1,6 @@
 <p align="center">
-  <svg width="400" height="50" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="#0c0c3f" rx="10" />
-    <image href="src\images\StellarBurgers.png" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" />
-  </svg>
+  <img width="290" height="50" src="src\images\StellarBurgers_dark.png">
 </p>
-
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
