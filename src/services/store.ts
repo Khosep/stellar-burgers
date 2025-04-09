@@ -15,7 +15,7 @@ import {
 } from 'react-redux';
 
 // При конструировании стора объединяем все редюсеры в один корневой редюсер
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   loading: loadingReducer,
   burgerConstructor: constructorReducer,
   feed: feedReducer,
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   user: userReducer
 });
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
   // Устранение предупреждения о несериализуемых значениях
   // middleware: (getDefaultMiddleware) =>

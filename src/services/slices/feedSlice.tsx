@@ -11,7 +11,7 @@ type TFeedState = {
   error: string | null;
 };
 
-const initialState: TFeedState = {
+export const initialStateFeed: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -25,11 +25,12 @@ export const getFeed = createAsyncThunk(
   `${sliceName}/getFeed`,
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoading({ isLoadingStatus: true, area: sliceName }));
       const data = await getFeedsApi();
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       return data;
     } catch (error) {
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       console.error(error);
       return rejectWithValue(
         error instanceof Error ? error.message : 'Unknown error'
@@ -40,7 +41,7 @@ export const getFeed = createAsyncThunk(
 
 export const feedSlice = createSlice({
   name: sliceName,
-  initialState,
+  initialState: initialStateFeed,
   reducers: {},
   extraReducers: (builder) => {
     builder

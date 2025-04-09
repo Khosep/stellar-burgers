@@ -19,7 +19,7 @@ type TUserState = {
   error: string | null;
 };
 
-const initialState: TUserState = {
+export const initialStateUser: TUserState = {
   isAuthorized: false, // флаг для статуса проверки токена пользователя
   user: null,
   error: null
@@ -35,11 +35,11 @@ export const loginUser = createAsyncThunk(
       const data = await loginUserApi({ email, password });
       //dispatch(setIsLoading(false));
       setCookie('accessToken', data.accessToken);
-
       localStorage.setItem('refreshToken', data.refreshToken);
       return data.user;
     } catch (error) {
       console.error(error);
+      //dispatch(setIsLoading(false));
       return rejectWithValue(
         typeof error === 'object' && error !== null && 'message' in error
           ? error.message
@@ -56,13 +56,14 @@ export const registerUser = createAsyncThunk(
     { dispatch, rejectWithValue }
   ) => {
     try {
-      dispatch(setIsLoading(true));
+      //dispatch(setIsLoading(true));
       const data = await registerUserApi({ name, email, password });
-      dispatch(setIsLoading(false));
+      //dispatch(setIsLoading(false));
       setCookie('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
       return data.user;
     } catch (error) {
+      //dispatch(setIsLoading(false));
       console.error(error);
       return rejectWithValue(
         typeof error === 'object' && error !== null && 'message' in error
@@ -77,11 +78,12 @@ export const getUser = createAsyncThunk(
   `${sliceName}/get`,
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoading({ isLoadingStatus: true, area: sliceName }));
       const data = await getUserApi();
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       return data.user;
     } catch (error) {
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       console.error(error);
       return rejectWithValue(
         typeof error === 'object' && error !== null && 'message' in error
@@ -96,9 +98,7 @@ export const logoutUser = createAsyncThunk(
   `${sliceName}/logout`,
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      //dispatch(setIsLoading(true));
       const data = await logoutApi();
-      //dispatch(setIsLoading(false));
       localStorage.removeItem('refreshToken');
       deleteCookie('accessToken');
       return data;
@@ -117,11 +117,12 @@ export const updateUser = createAsyncThunk(
   `${sliceName}/update`,
   async (user: Partial<TRegisterData>, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoading({ isLoadingStatus: true, area: sliceName }));
       const data = await updateUserApi(user);
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       return data.user;
     } catch (error) {
+      dispatch(setIsLoading({ isLoadingStatus: false, area: sliceName }));
       console.error(error);
       return rejectWithValue(
         typeof error === 'object' && error !== null && 'message' in error
@@ -134,7 +135,7 @@ export const updateUser = createAsyncThunk(
 
 export const userSlice = createSlice({
   name: sliceName,
-  initialState,
+  initialState: initialStateUser,
   reducers: {
     resetUserError: (state) => {
       state.error = null;

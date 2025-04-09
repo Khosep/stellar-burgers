@@ -19,7 +19,7 @@ export const ProfileOrders: FC = () => {
     dispatch(getUserOrders());
   }, [dispatch]);
 
-  if (isLoading) {
+  if (isLoading.order) {
     return <Preloader />;
   }
 
