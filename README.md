@@ -1,8 +1,9 @@
-<div style="background-color:rgb(12, 12, 63); padding: 20px; border-radius: 10px;">
-  <img src="src\images\StellarBurgers.png" alt="Stellar Burgers" style="display: block; margin: 0 auto;" />
-</div>
-
-___
+<p align="center">
+  <svg width="400" height="50" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" fill="#0c0c3f" rx="10" />
+    <image href="src\images\StellarBurgers.png" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" />
+  </svg>
+</p>
 
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -12,26 +13,26 @@ ___
 ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
 
 ---
-## Что сделано
+## Реализовано
 
-### 1. Настроен роутинг (`React Routing`).
-### 2. Написан функционал запросов данных с сервера, используя `Redux` и глобальный store.
-### 3. Настроена авторизацию и созданы защищённые роуты.
-### 4. Написаны интеграционные (`Cypress`) и юнит-тесты (`Jest`).
+#### 1. Настроен роутинг (`React Routing`).
+#### 2. Написан функционал запросов данных с сервера, используя `Redux` и глобальный store.
+#### 3. Настроена авторизацию и созданы защищённые роуты.
+#### 4. Написаны интеграционные (`Cypress`) и юнит-тесты (`Jest`).
 
 ## Запуск:
 
-### 1. Создать .env файл из env.example (в корневой папке)
+#### 1. Создать .env файл из env.example (в корневой папке)
 
-### 2. Запустить команду для установки зависимостей
+#### 2. Запустить команду для установки зависимостей
 ```bash
 npm i
 ```
-### 3. Для старта запустить
+#### 3. Для старта запустить
 ```bash
 npm start
 ```
-### 4. Тестирование
+#### 4. Тестирование
 #### 4.1. Unit-тесты (Jest)
 ```bash
 npm run test
